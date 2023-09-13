@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
+import {Schema, model} from 'mongoose';
 import {Species} from '../../interfaces/Species';
-// based on iterface Species located in src/interfaces/Species.ts
+// Schema for the Species model
+// based on the Species interface located at: src/interfaces/Species.ts
 
-const speciesSchema = new mongoose.Schema<Species>({
+const speciesSchema = new Schema<Species>({
   species_name: {
     type: String,
     required: true,
@@ -10,7 +11,7 @@ const speciesSchema = new mongoose.Schema<Species>({
     minlength: 2,
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
   },
@@ -31,4 +32,4 @@ const speciesSchema = new mongoose.Schema<Species>({
   },
 });
 
-export default mongoose.model<Species>('Species', speciesSchema);
+export default model<Species>('Species', speciesSchema);

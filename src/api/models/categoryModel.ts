@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import {Schema, model} from 'mongoose';
 import {Category} from '../../interfaces/Category';
-// Schema for category model
-// based on iterface Category located in src/interfaces/Category.ts
+// Schema for the Category model
+// based on the Category interface located at: src/interfaces/Category.ts
 
-const categorySchema = new mongoose.Schema<Category>({
+const categorySchema = new Schema<Category>({
   category_name: {
     type: String,
     required: true,
@@ -12,5 +12,4 @@ const categorySchema = new mongoose.Schema<Category>({
   },
 });
 
-// Create model for category
-export default mongoose.model<Category>('Category', categorySchema);
+export default model<Category>('Category', categorySchema);
