@@ -31,4 +31,11 @@ type Mutation {
     category: ID!
     location: GeoJsonPointInput!
   ): Species
+  updateSpecies(
+    id: ID!
+    species_name: String
+    category: ID
+    location: GeoJsonPointInput
+  ): Species
+  deleteSpecies(id: ID!): Species
 }
