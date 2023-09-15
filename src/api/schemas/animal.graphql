@@ -6,11 +6,28 @@ type Animal {
   species: Species
   gender: GenderEnum
   birthdate: DateTime
+  image: String
+  thumbnail: String
+  location: GeoJsonPoint
 }
 
 enum GenderEnum {
   Male
   Female
+}
+
+type GeoJsonPoint {
+  type: PointEnum
+  coordinates: [Float]
+}
+
+input GeoJsonPointInput {
+  type: PointEnum!
+  coordinates: [Float]!
+}
+
+enum PointEnum {
+  Point
 }
 
 type Query {
@@ -24,6 +41,9 @@ type Mutation {
     species: ID!
     gender: GenderEnum!
     birthdate: DateTime!
+    image: String!
+    thumbnail: String!
+    location: GeoJsonPointInput!
   ): Animal
   updateAnimal(
     id: ID!
