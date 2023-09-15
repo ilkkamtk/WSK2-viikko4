@@ -19,10 +19,19 @@ export default {
     },
   },
   Mutation: {
-    addCategory: async (_parent: undefined, args: {name: string}) => {
+    addCategory: async (_parent: undefined, args: Category) => {
       console.log(args);
       const newCategory = new categoryModel(args);
       return await newCategory.save();
+    },
+    updateCategory: async (_parent: undefined, args: Category) => {
+      console.log(args);
+      return await categoryModel.findByIdAndUpdate(args.id, args, {
+        new: true,
+      });
+    },
+    deleteCategory: async (_parent: undefined, args: {id: string}) => {
+      return await categoryModel.findByIdAndDelete(args.id);
     },
   },
 };
