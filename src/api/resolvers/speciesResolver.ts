@@ -26,5 +26,17 @@ export default {
       const newSpecies = new speciesModel(args);
       return await newSpecies.save();
     },
+    updateSpecies: async (_parent: undefined, args: Species) => {
+      console.log(args);
+      if (args.species_name) {
+        args.image = await imageFromWikipedia(args.species_name);
+      }
+      return await speciesModel.findByIdAndUpdate(args.id, args, {
+        new: true,
+      });
+    },
+    deleteSpecies: async (_parent: undefined, args: {id: String}) => {
+      return await speciesModel.findByIdAndDelete(args.id);
+    },
   },
 };
