@@ -5,5 +5,9 @@ type Category {
 
 type Query {
   categories: [Category]
-  categoryById: Category
+  categoryById(id: ID!): Category
+}
+
+type Mutation {
+  addCategory(category_name: String!): Category
 }

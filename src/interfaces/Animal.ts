@@ -5,6 +5,7 @@ interface Animal extends Document {
   animal_name: string;
   species: Species;
   birthdate: Date;
+  gender: 'Female' | 'Male';
 }
 
 interface TestAnimal {

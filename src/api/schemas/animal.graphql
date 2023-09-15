@@ -1,0 +1,28 @@
+scalar DateTime
+
+type Animal {
+  id: ID
+  animal_name: String
+  species: Species
+  gender: GenderEnum
+  birthdate: DateTime
+}
+
+enum GenderEnum {
+  Male
+  Female
+}
+
+type Query {
+  animals: [Animal]
+  animalById(id: ID!): Animal
+}
+
+type Mutation {
+  addAnimal(
+    animal_name: String!
+    species: ID!
+    gender: GenderEnum!
+    birthdate: DateTime!
+  ): Animal
+}
