@@ -19,10 +19,10 @@ export default {
     },
   },
   Mutation: {
-    addCategory: (_parent: undefined, args: {name: string}) => {
+    addCategory: async (_parent: undefined, args: {name: string}) => {
       console.log(args);
       const newCategory = new categoryModel(args);
-      return newCategory.save();
+      return await newCategory.save();
     },
   },
 };
