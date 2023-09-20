@@ -21,8 +21,8 @@ type Query {
 }
 
 type TokenMessage {
-  token!: String
-  message!: String
+  token: String!
+  message: String!
   user: User!
 }
 
