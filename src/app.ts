@@ -11,6 +11,8 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
 } from '@apollo/server/plugin/landingPage/default';
 import {notFound, errorHandler} from './middlewares';
+import {MyContext} from './interfaces/MyContext';
+import authenticate from './functions/authenticate';
 
 const app = express();
 
@@ -22,14 +24,13 @@ const app = express();
         contentSecurityPolicy: false,
       })
     );
-    const server = new ApolloServer({
+    const server = new ApolloServer<MyContext>({
       typeDefs,
       resolvers,
       plugins: [
         process.env.ENVIRONMENT === 'production'
           ? ApolloServerPluginLandingPageProductionDefault({
-              graphRef: 'my-graph-id@my-graph-variant',
-              footer: false,
+              embed: true as false,
             })
           : ApolloServerPluginLandingPageLocalDefault({footer: false}),
       ],
@@ -41,7 +42,9 @@ const app = express();
       '/graphql',
       cors<cors.CorsRequest>(),
       express.json(),
-      expressMiddleware(server)
+      expressMiddleware(server, {
+        context: ({req}) => authenticate(req),
+      })
     );
 
     app.use(notFound);

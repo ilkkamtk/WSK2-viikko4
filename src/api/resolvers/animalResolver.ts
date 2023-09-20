@@ -1,4 +1,5 @@
 import {Animal} from '../../interfaces/Animal';
+import {MyContext} from '../../interfaces/MyContext';
 import animalModel from '../models/animalModel';
 
 // TODO: animalResolver
@@ -7,7 +8,12 @@ export default {
     animals: async () => {
       return await animalModel.find();
     },
-    animalById: async (_parent: undefined, args: {id: string}) => {
+    animalById: async (
+      _parent: undefined,
+      args: {id: string},
+      context: MyContext
+    ) => {
+      console.log(context);
       return await animalModel.findById(args.id);
     },
   },
