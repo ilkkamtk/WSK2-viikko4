@@ -1,14 +1,12 @@
-import {Document} from 'mongoose';
-
-interface User extends Document {
-  username: string;
+interface User {
+  full_name: string;
   email: string;
   password: string;
   role: 'admin' | 'user';
 }
 
 interface UserLogin {
-  username: string;
+  full_name: string;
   email: string;
   id: string;
 }

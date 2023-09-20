@@ -13,7 +13,7 @@ export default {
       args: {id: string},
       context: MyContext
     ) => {
-      console.log(context);
+      console.log('moro', context);
       return await animalModel.findById(args.id);
     },
   },
