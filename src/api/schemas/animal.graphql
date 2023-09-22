@@ -27,6 +27,11 @@ input GeoJsonPointInput {
   coordinates: [Float]!
 }
 
+input Coordinates {
+  lat: Float!
+  lng: Float!
+}
+
 enum PointEnum {
   Point
 }
@@ -34,6 +39,7 @@ enum PointEnum {
 type Query {
   animals: [Animal]
   animalById(id: ID!): Animal
+  animalsByArea(topRight: Coordinates!, bottomLeft: Coordinates!): [Animal]
 }
 
 type Mutation {

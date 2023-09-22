@@ -1,9 +1,9 @@
 import {GraphQLError} from 'graphql';
 import {Animal} from '../../interfaces/Animal';
-import {MyContext} from '../../interfaces/MyContext';
 import {UserIdWithToken} from '../../interfaces/User';
 import animalModel from '../models/animalModel';
-import {Types} from 'mongoose';
+import {LocationInput} from '../../interfaces/Location';
+import rectangleBounds from '../../utils/rectangleBounds';
 
 // TODO: animalResolver
 export default {
@@ -13,6 +13,17 @@ export default {
     },
     animalById: async (_parent: undefined, args: {id: string}) => {
       return await animalModel.findById(args.id);
+    },
+    animalsByArea: async (_parent: undefined, args: LocationInput) => {
+      const bounds = rectangleBounds(args.topRight, args.bottomLeft);
+
+      return await animalModel.find({
+        location: {
+          $geoWithin: {
+            $geometry: bounds,
+          },
+        },
+      });
     },
   },
   Mutation: {
