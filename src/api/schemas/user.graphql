@@ -32,6 +32,6 @@ type RegisterMessage {
 }
 
 type Mutation {
-  login(credentials: Credentials!): TokenMessage
+  login(email: String!, password: String!): TokenMessage
   createUser(user: UserInput!): RegisterMessage
 }
