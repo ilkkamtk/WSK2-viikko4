@@ -1,5 +1,6 @@
 import fetchData from '../../functions/fetchData';
 import AuthMessageResponse from '../../interfaces/AuthMessageResponse';
+import LoginMessageResponse from '../../interfaces/LoginMessageResponse';
 
 export default {
   Query: {
@@ -12,11 +13,22 @@ export default {
     },
   },
   Mutation: {
-    login: async (_parent: undefined, args: {email: string, password: string}) => {
+    login: async (
+      _parent: undefined,
+      args: {email: string; password: string}
+    ) => {
       const options: RequestInit = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(args),
-      }
+      };
 
+      const user = await fetchData<LoginMessageResponse>(
+        `${process.env.AUTH_URL}/auth/login`,
+        options
+      );
+
+      return user;
+    },
+  },
 };
