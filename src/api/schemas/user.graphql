@@ -28,7 +28,7 @@ type TokenMessage {
 
 type RegisterMessage {
   message: String
-  user: User
+  data: User
 }
 
 type Mutation {
