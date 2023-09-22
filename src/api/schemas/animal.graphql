@@ -9,7 +9,7 @@ type Animal {
   image: String
   thumbnail: String
   location: GeoJsonPoint
-  owner: ID
+  owner: User
 }
 
 enum GenderEnum {
