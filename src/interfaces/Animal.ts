@@ -10,7 +10,7 @@ interface Animal extends Document {
   image: string;
   thumbnail: string;
   location: Point;
-  owner: Types.ObjectId;
+  owner: Types.ObjectId | string;
 }
 
 interface TestAnimal {

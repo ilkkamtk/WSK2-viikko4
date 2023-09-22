@@ -1,6 +1,9 @@
+import {GraphQLError} from 'graphql';
 import {Animal} from '../../interfaces/Animal';
 import {MyContext} from '../../interfaces/MyContext';
+import {UserIdWithToken} from '../../interfaces/User';
 import animalModel from '../models/animalModel';
+import {Types} from 'mongoose';
 
 // TODO: animalResolver
 export default {
@@ -13,8 +16,17 @@ export default {
     },
   },
   Mutation: {
-    addAnimal: async (_parent: undefined, args: Animal) => {
-      console.log(args);
+    addAnimal: async (
+      _parent: undefined,
+      args: Animal,
+      user: UserIdWithToken
+    ) => {
+      if (!user.id) {
+        throw new GraphQLError('Not authorized', {
+          extensions: {code: 'NOT_AUTHORIZED'},
+        });
+      }
+      args.owner = user.id;
       const animal = new animalModel(args);
       return await animal.save();
     },
