@@ -32,11 +32,14 @@ export default {
 
       return user;
     },
-    createUser: async (_parent: undefined, args: Omit<User, 'role'>) => {
+    createUser: async (
+      _parent: undefined,
+      args: {user: Omit<User, 'role'>}
+    ) => {
       const options: RequestInit = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(args),
+        body: JSON.stringify(args.user),
       };
 
       const user = await fetchData<AuthMessageResponse>(
