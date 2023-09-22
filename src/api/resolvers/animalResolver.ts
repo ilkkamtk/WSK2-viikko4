@@ -8,12 +8,7 @@ export default {
     animals: async () => {
       return await animalModel.find();
     },
-    animalById: async (
-      _parent: undefined,
-      args: {id: string},
-      context: MyContext
-    ) => {
-      console.log('moro', context);
+    animalById: async (_parent: undefined, args: {id: string}) => {
       return await animalModel.findById(args.id);
     },
   },

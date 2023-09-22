@@ -1,7 +1,9 @@
 // TODO: categoryResolver
 import {Category} from '../../interfaces/Category';
 import {Species} from '../../interfaces/Species';
+import {UserIdWithToken} from '../../interfaces/User';
 import categoryModel from '../models/categoryModel';
+import {GraphQLError} from 'graphql';
 
 export default {
   Species: {
@@ -19,8 +21,17 @@ export default {
     },
   },
   Mutation: {
-    addCategory: async (_parent: undefined, args: Category) => {
-      console.log(args);
+    addCategory: async (
+      _parent: undefined,
+      args: Category,
+      user: UserIdWithToken
+    ) => {
+      console.log(user);
+      if (!user.id) {
+        throw new GraphQLError('Not authorized', {
+          extensions: {code: 'NOT_AUTHORIZED'},
+        });
+      }
       const newCategory = new categoryModel(args);
       return await newCategory.save();
     },
