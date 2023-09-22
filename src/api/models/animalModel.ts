@@ -49,6 +49,11 @@ const animalSchema = new Schema<Animal>({
       },
     },
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 export default model<Animal>('Animal', animalSchema);

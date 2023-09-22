@@ -26,7 +26,6 @@ export default {
       args: Category,
       user: UserIdWithToken
     ) => {
-      console.log(user);
       if (!user.id) {
         throw new GraphQLError('Not authorized', {
           extensions: {code: 'NOT_AUTHORIZED'},
@@ -35,13 +34,30 @@ export default {
       const newCategory = new categoryModel(args);
       return await newCategory.save();
     },
-    updateCategory: async (_parent: undefined, args: Category) => {
-      console.log(args);
+    updateCategory: async (
+      _parent: undefined,
+      args: Category,
+      user: UserIdWithToken
+    ) => {
+      if (!user.id) {
+        throw new GraphQLError('Not authorized', {
+          extensions: {code: 'NOT_AUTHORIZED'},
+        });
+      }
       return await categoryModel.findByIdAndUpdate(args.id, args, {
         new: true,
       });
     },
-    deleteCategory: async (_parent: undefined, args: {id: string}) => {
+    deleteCategory: async (
+      _parent: undefined,
+      args: {id: string},
+      user: UserIdWithToken
+    ) => {
+      if (!user.id) {
+        throw new GraphQLError('Not authorized', {
+          extensions: {code: 'NOT_AUTHORIZED'},
+        });
+      }
       return await categoryModel.findByIdAndDelete(args.id);
     },
   },

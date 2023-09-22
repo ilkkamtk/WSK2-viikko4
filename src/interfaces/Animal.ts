@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import {Species} from './Species';
 import {Point} from 'geojson';
 
@@ -10,6 +10,7 @@ interface Animal extends Document {
   image: string;
   thumbnail: string;
   location: Point;
+  owner: Types.ObjectId;
 }
 
 interface TestAnimal {
