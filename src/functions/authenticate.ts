@@ -3,19 +3,6 @@ import jwt from 'jsonwebtoken';
 import {TokenUser, UserIdWithToken} from '../interfaces/User';
 
 export default async (req: Request) => {
-  /*
-  // check that user is in auth server
-  const response = await fetch(`${process.env.AUTH_URL}/users/token`, {
-    headers: {Authorization: req.headers.authorization as string},
-  });
-  if (!response.ok) {
-    return {};
-  }
-  const message = (await response.json()) as LoginMessageResponse;
-
-  return message || {};
-  */
-
   const bearer = req.headers.authorization;
   if (!bearer) {
     return {};
@@ -35,6 +22,16 @@ export default async (req: Request) => {
   if (!userFromToken) {
     return {};
   }
+
+  /*
+  // check that user is in auth server
+  const response = await fetch(`${process.env.AUTH_URL}/users/token`, {
+    headers: {Authorization: req.headers.authorization as string},
+  });
+  if (!response.ok) {
+    return {};
+  }
+  */
 
   const userIdWithToken: UserIdWithToken = {
     id: userFromToken.id,
